@@ -1,0 +1,17 @@
+- name: Updating the hostname
+  ansible.builtin.shell: set-hostname {{role_name}}
+
+- name: Install nginx
+  ansible.builtin.yum:
+    name: nginx
+    state: present
+
+- name: Remove the default content
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Getting the code from git
+  ansible.builtin.git:
+    repo: 'https://github.com/VVSGanesh/frontend.git'
+    dest: /usr/share/nginx/html
